@@ -23,4 +23,6 @@ class Users extends Component {
     gridGap: '1rem'
 
 }
+
+
 export default Users;
