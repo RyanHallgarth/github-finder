@@ -24,5 +24,5 @@ class Users extends Component {
 
 }
 
-
+const okay = 0;
 export default Users;
