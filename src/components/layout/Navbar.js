@@ -20,6 +20,9 @@ const Navbar = ({ icon, title }) => {
   );
 };
 
+// This is just one way to set default props
+// if there happens to be a null value. Typing a string in the h1 instead of {title}
+// would override the default props
 Navbar.defaultProps = {
   title: "Github Finder",
   icon: "fab fa-github",
