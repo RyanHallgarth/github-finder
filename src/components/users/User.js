@@ -32,7 +32,7 @@ const User = ({ user, loading, getUser, getUserRepos, repos, match }) => {
     hireable,
   } = user;
 
-  // If user data hasn't been rendered (API call to GitHub) show loading spinner.
+  // If user data response hasn't been received (API call to GitHub) show loading spinner.
   if (loading) return <Spinner />;
 
   //User Info UI populated with data from getUser()

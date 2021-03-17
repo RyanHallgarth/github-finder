@@ -15,6 +15,7 @@ const Search = ({ searchUsers, showClear, clearUsers, setAlert }) => {
     is targeted by e.target.value, passed into setText, updates current state
     character by character.
     */
+    console.log(e.target.value);
     setText(e.target.value);
   };
 
