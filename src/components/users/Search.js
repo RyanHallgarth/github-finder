@@ -1,7 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import PropTypes from "prop-types";
+//**1.) import context file.
+import GithubContext from "../../context/github/githubContext";
 
-const Search = ({ searchUsers, showClear, clearUsers, setAlert }) => {
+const Search = ({ showClear, clearUsers, setAlert }) => {
+  //**2.) Define context with useContext */
+  const githubContext = useContext(GithubContext);
   /*Define state for 'text' as an empty string. setText
   is called and passed a value to change the state of 'text'.*/
   const [text, setText] = useState("");
@@ -28,7 +32,8 @@ const Search = ({ searchUsers, showClear, clearUsers, setAlert }) => {
       setAlert("Must enter text to search!", "light");
       //Otherwise, pass current state of text to searchUsers()
     } else {
-      searchUsers(text);
+      //**3.) Make call that will update state */
+      githubContext.searchUsers(text);
       //and reset text state to empty string
       setText("");
     }
@@ -68,7 +73,6 @@ const Search = ({ searchUsers, showClear, clearUsers, setAlert }) => {
 };
 
 Search.propTypes = {
-  searchUsers: PropTypes.func.isRequired,
   clearUsers: PropTypes.func.isRequired,
   showClear: PropTypes.bool.isRequired,
   setAlert: PropTypes.func.isRequired,
