@@ -46,10 +46,47 @@ const GithubState = (props) => {
   };
 
   //Get User
+  /* 
+  getUser() fires when userItem is clicked. The login username is passed into the function. Loading
+  is set to true to show spinner component.  An asynchronous call is made to the GitHub single user endpoint.
+  An object holding single user data is returned and stored in res. The single user object data is passed
+  into 'setUser()' which populates the empty 'user' object. loading is set to false.
+  */
+  const getUser = async (username) => {
+    console.log(username);
+    setLoading();
+    const res = await axios.get(
+      `https://api.github.com/users/${username}?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
+    );
+    console.log("Individual user...");
+    console.log(res.data);
+    dispatch({
+      type: GET_USER,
+      payload: res.data,
+    });
+  };
 
   //Get Repos
+  /* 
+  username is passed into getUserRepos(), which fires when userItem button is clicked. Loading is set to true.
+  An asynchronous API call is made using the username is the query string.  res holds the API response.  res is 
+  passed into setRepos(), which changes the repos state from empty to holding an array of repository data.
+ */
+  const getUserRepos = async (username) => {
+    setLoading();
+    const res = await axios.get(
+      `https://api.github.com/users/${username}/repos?per_page=5&sort=created:asc&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
+    );
+
+    dispatch({
+      type: GET_REPOS,
+      payload: res.data,
+    });
+  };
 
   //Clear users
+  /* users state array is set to empty, which clears search results. */
+  const clearUsers = () => dispatch({ type: CLEAR_USERS });
 
   //Set Loading
   //Dispatch an object with 'type', we catch/handle this in githubReducer
@@ -64,6 +101,9 @@ const GithubState = (props) => {
         repos: state.repos,
         loading: state.loading,
         searchUsers,
+        clearUsers,
+        getUser,
+        getUserRepos,
       }}
     >
       {props.children}
