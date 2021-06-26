@@ -1,11 +1,14 @@
+//**0.) import useContext */
 import React, { useState, useContext } from "react";
 import PropTypes from "prop-types";
 //**1.) import context file.
 import GithubContext from "../../context/github/githubContext";
+import AlertContext from "../../context/alert/alertContext";
 
-const Search = ({ setAlert }) => {
+const Search = () => {
   //**2.) Define context with useContext */
   const githubContext = useContext(GithubContext);
+  const alertContext = useContext(AlertContext);
   /*Define state for 'text' as an empty string. setText
   is called and passed a value to change the state of 'text'.*/
   const [text, setText] = useState("");
@@ -29,7 +32,7 @@ const Search = ({ setAlert }) => {
     //If text state is empty when Search event is fired,
     if (text === "") {
       //Display Alert to user
-      setAlert("Must enter text to search!", "light");
+      alertContext.setAlert("Must enter text to search!", "light");
       //Otherwise, pass current state of text to searchUsers()
     } else {
       //**3.) Make call that will update state */
@@ -73,10 +76,6 @@ const Search = ({ setAlert }) => {
       )}
     </div>
   );
-};
-
-Search.propTypes = {
-  setAlert: PropTypes.func.isRequired,
 };
 
 export default Search;

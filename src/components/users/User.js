@@ -5,14 +5,21 @@ import Repos from "../repos/Repos";
 import { Link } from "react-router-dom";
 import GithubContext from "../../context/github/githubContext";
 
-// Instead of passing props object, destructure and pass in
-// separate properties to avoid typing props.<propHere> everywhere
+/*
+    -match is the only prop passed into User() because all other state
+    is delivered via useContext.
+    
+*/
 const User = ({ match }) => {
   const githubContext = useContext(GithubContext);
   const { getUser, loading, user, getUserRepos, repos } = githubContext;
 
-  /*  useEffect fires once (blank dependency array). Running these functions outside
-  of useEffect creates a perpetual loop.  */
+  /*  -useEffect fires when the dependencies in the dependency array change.  
+      -A blank dependency array ensures that the functions inside useEffect only run once.
+      -This immitates the functionality of componentDidMount()
+      -Running these functions outside of useEffect creates a perpetual loop.  
+      
+      */
   useEffect(() => {
     getUser(match.params.login);
     getUserRepos(match.params.login);
