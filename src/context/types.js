@@ -3,6 +3,9 @@
     
     All of our actions have types.  Notice these variables
     are actions. Get, set, search, remove ect..
+
+    Located in context folder (outside github because types
+        are relevant to all state (github and alerts))
     */
 
 export const SEARCH_USERS = "SEARCH_USERS";

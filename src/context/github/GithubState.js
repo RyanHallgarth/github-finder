@@ -14,7 +14,8 @@ import {
   GET_REPOS,
 } from "../types";
 
-//Set initial state; this will be available to all components.  No prop drilling?
+/* Set initial state; this will be available to all components.
+  GithubState will include all of our actions (from /types) */
 const GithubState = (props) => {
   const initialState = {
     users: [],
@@ -22,7 +23,10 @@ const GithubState = (props) => {
     repos: [],
     loading: false,
   };
-
+  /* We call an action, the action makes a request to github, we get a response
+    and we dispatch a 'type' back to our reducer.
+    We need to use the useReducer hook here.
+    */
   const [state, dispatch] = useReducer(GithubReducer, initialState);
 
   // Search Users function/logic
@@ -53,7 +57,6 @@ const GithubState = (props) => {
   into 'setUser()' which populates the empty 'user' object. loading is set to false.
   */
   const getUser = async (username) => {
-    console.log(username);
     setLoading();
     const res = await axios.get(
       `https://api.github.com/users/${username}?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
@@ -92,7 +95,15 @@ const GithubState = (props) => {
   //Dispatch an object with 'type', we catch/handle this in githubReducer
   const setLoading = () => dispatch({ type: SET_LOADING });
 
-  /* We're making this state accessible to entire app */
+  /* We're making this state accessible to entire app using
+    <GithubContext.Provider>
+    
+    We pass a value prop in, which we pass in anything we want
+    available to the entire app.
+    
+    {props.children}...?.
+    */
+
   return (
     <GithubContext.Provider
       value={{
