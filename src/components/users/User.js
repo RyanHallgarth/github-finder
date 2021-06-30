@@ -23,6 +23,7 @@ const User = ({ match }) => {
   useEffect(() => {
     getUser(match.params.login);
     getUserRepos(match.params.login);
+    // eslint-disable-next-line
   }, []);
 
   // Destructure user object.
