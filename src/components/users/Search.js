@@ -3,6 +3,7 @@ import React, { useState, useContext } from "react";
 //**1.) import context file.
 import GithubContext from "../../context/github/githubContext";
 import AlertContext from "../../context/alert/alertContext";
+import { searchUsers } from "../../context/github/actions";
 
 const Search = () => {
   //**2.) Define context with useContext */
@@ -35,7 +36,7 @@ const Search = () => {
       //Otherwise, pass current state of text to searchUsers()
     } else {
       //**3.) Make call that will update state */
-      githubContext.searchUsers(text);
+      searchUsers(text);
       //and reset text state to empty string
       setText("");
     }
